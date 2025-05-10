@@ -29,7 +29,10 @@ export class DiscordPlaceClient {
 
     private async postBotStats(stats: IBotStats): Promise<boolean> {
         try {
-            const response = await this.client.patch(`/bots/${this.botID}/stats`, stats);
+            let p = JSON.stringify(stats)
+            const response = await this.client.patch(`/bots/${this.botID}/stats`, {
+                body: p
+            });
             return response.data.success as boolean;
         } catch (error) {
             console.error('Error posting bot stats:', error);
